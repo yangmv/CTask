@@ -55,3 +55,7 @@ location /api/v1.0/job/ {
         proxy_pass http://job;
 }
 ```
+
+## License
+
+Everything is [GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
