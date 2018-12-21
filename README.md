@@ -66,10 +66,10 @@ location /api/v1.0/job/ {
 ![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/01.png)
 
 ##### 任务暂停/恢复
-![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/02.png)
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/02.jpg)
 
 ##### 任务日志
-![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/03.png)
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/03.jpg)
 
 
 ## License
