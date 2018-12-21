@@ -56,6 +56,22 @@ location /api/v1.0/job/ {
 }
 ```
 
+#### 五 用户使用说明
+##### 新增任务
+- Job_id： 任务名称，建议为有意义的英文名称
+- 可执行命令： Linux Bash 命令
+- 任务定时器： （秒、分、时、日、月、周）
+- 示例：每分钟的第20秒开始执行pwd命令
+
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/static/images/01.png)
+
+##### 任务暂停/恢复
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/static/images/02.png)
+
+##### 任务日志
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/static/images/03.png)
+
+
 ## License
 
 Everything is [GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
