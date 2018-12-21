@@ -63,13 +63,13 @@ location /api/v1.0/job/ {
 - 任务定时器： （秒、分、时、日、月、周）
 - 示例：每分钟的第20秒开始执行pwd命令
 
-![image](https://raw.githubusercontent.com/yangmv/CTask/master/static/images/01.png)
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/01.png)
 
 ##### 任务暂停/恢复
-![image](https://raw.githubusercontent.com/yangmv/CTask/master/static/images/02.png)
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/02.png)
 
 ##### 任务日志
-![image](https://raw.githubusercontent.com/yangmv/CTask/master/static/images/03.png)
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/03.png)
 
 
 ## License
