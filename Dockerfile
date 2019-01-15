@@ -35,6 +35,3 @@ COPY docs/nginx_cron.conf /etc/nginx/conf.d/
 
 EXPOSE 80
 CMD ["/usr/bin/supervisord"]
-
-##### build测试
-# docker build -t cmdb .
