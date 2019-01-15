@@ -31,6 +31,6 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     from .job import main as job_blueprint
-    app.register_blueprint(job_blueprint,url_prefix='/api/v1.0/job')
+    app.register_blueprint(job_blueprint,url_prefix='/v1/cron/job')
 
     return app

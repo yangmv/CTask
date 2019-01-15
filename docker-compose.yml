@@ -1,0 +1,14 @@
+cron:
+  restart: unless-stopped
+  image: cron:latest
+  volumes:
+    - /var/log/supervisor/:/var/log/supervisor/
+    - /var/www/CTask/:/var/www/CTask/
+    - /sys/fs/cgroup:/sys/fs/cgroup
+  ports:
+    - "5001:80"
+  hostname: cron-exec01
+
+  # docker-compose up -d
+  # docker-compose down
+  # 接口测试: http://cron.opendevops.cn:5001/v1/cron/job/

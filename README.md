@@ -9,27 +9,33 @@
 
 ## 部署
 
-#### 一 同步数据库
+
+#### 一 安装依赖
 ```
-python3 manage.py db init        #首次需要
-python3 manage.py db migrate
-python3 manage.py db upgrade
+pip3 install --upgrade pip
+pip3 install -r requirements.txt
 ```
 
-#### 二 gunicorn
-```
-pip3 install guncorn
-cd /opt/CTask
-gunicorn -b 0.0.0.0:5000 manage:app --workers 4 --preload --reload
-```
+#### 二 配置
+- 配置文件 config.py
+- 配置数据库信息
 
 
-#### 三 Supervisor
+#### 三 同步数据库
+```
+# python3 manage.py db init        #首次需要
+# python3 manage.py db migrate
+# python3 manage.py db upgrade
+mysql -h 127.0.0.1 -u root -p123456 -e "create database cron default character set utf8mb4 collate utf8mb4_unicode_ci;"
+mysql -h 127.0.0.1 -u root -p123456 cmdb < docs/cron.sql
+```
+
+#### 四 Supervisor
 ```
 cat >> /etc/supervisord.conf <<EOF
 [program:cron_job]
 process_name=cron_job
-command=/usr/local/bin/gunicorn -b 0.0.0.0:5000 manage:app --workers 4 --preload
+command=/usr/local/bin/gunicorn -b 0.0.0.0:5001 manage:app --workers 4 --preload
 directory=/opt/CTask/
 autorestart=true
 redirect_stderr=true
@@ -41,13 +47,19 @@ supervisorctl update
 supervisorctl reload
 ```
 
-#### 四 Nginx配置
+#### 五 Nginx配置
 ```
 upstream  job{
-        server  127.0.0.1:5000;
+        server  127.0.0.1:5001;
 }
 
-location /api/v1.0/job/ {
+location / {
+        root /var/www/CTask/dist;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html;
+        }
+
+location /v1/cron/job {
         proxy_set_header Host $http_host;
         proxy_redirect off;
         proxy_set_header X-Real-IP $remote_addr;
@@ -65,8 +77,8 @@ location /api/v1.0/job/ {
 
 ![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/01.png)
 
-##### 任务暂停/恢复
-![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/02.jpg)
+##### 任务列表/可暂停/可恢复
+![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/02.png)
 
 ##### 任务日志
 ![image](https://raw.githubusercontent.com/yangmv/CTask/master/images/03.jpg)
