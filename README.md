@@ -7,9 +7,13 @@
 - 支持秒级定时任务
 - 任务可搜索、暂停、编辑、删除
 
-## 部署
+## 快速体验部署[Docker]
+```
+vim quick_start.sh      #配置DB账号信息
+bash quick_start.sh
+```
 
-
+## 普通部署
 #### 一 安装依赖
 ```
 pip3 install --upgrade pip
@@ -26,8 +30,8 @@ pip3 install -r requirements.txt
 # python3 manage.py db init        #首次需要
 # python3 manage.py db migrate
 # python3 manage.py db upgrade
-mysql -h 127.0.0.1 -u root -p123456 -e "create database cron default character set utf8mb4 collate utf8mb4_unicode_ci;"
-mysql -h 127.0.0.1 -u root -p123456 cmdb < docs/cron.sql
+mysql -h 127.0.0.1 -u root -p123456 -e "create database ctask default character set utf8mb4 collate utf8mb4_unicode_ci;"
+mysql -h 127.0.0.1 -u root -p123456 ctask < docs/cron.sql
 ```
 
 #### 四 Supervisor

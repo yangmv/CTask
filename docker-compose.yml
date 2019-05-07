@@ -1,6 +1,6 @@
 cron:
   restart: unless-stopped
-  image: cron:latest
+  image: ctask:latest
   volumes:
     - /var/log/supervisor/:/var/log/supervisor/
     - /var/www/CTask/:/var/www/CTask/

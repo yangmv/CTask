@@ -35,3 +35,6 @@ COPY docs/nginx_cron.conf /etc/nginx/conf.d/
 
 EXPOSE 80
 CMD ["/usr/bin/supervisord"]
+
+#docker build -t ctask .
+#docker run --name ctask -d -p 5001:80 ctask:latest
