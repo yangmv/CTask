@@ -6,7 +6,7 @@
 basedir="/var/www"
 
 # DB信息请修改正确
-mysql_host="127.0.0.1"
+mysql_host="10.211.55.4"
 mysql_user="root"
 mysql_pwd="123456"
 
@@ -41,7 +41,7 @@ cat >> /etc/hosts <<EOF
 127.0.0.1     cron.yangmv.com
 EOF
 
-echo "请在需要访问的机器上添加hosts"
+echo "[注意] 请在需要访问的机器上添加hosts"
 echo "you_host_ip     cron.yangmv.com"
 echo "然后请用浏览器访问  http://cron.yangmv.com:5001"
 
