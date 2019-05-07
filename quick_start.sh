@@ -43,6 +43,6 @@ EOF
 
 echo "请在需要访问的机器上添加hosts"
 echo "you_host_ip     cron.yangmv.com"
-echo "然后请用浏览器访问  http://cron.opendevops.cn:5001"
+echo "然后请用浏览器访问  http://cron.yangmv.com:5001"
 
 
