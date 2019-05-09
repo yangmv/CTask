@@ -101,3 +101,5 @@ ENV/
 
 .idea
 .update
+migrations
+test
