@@ -2,7 +2,7 @@
 #encoding:utf-8
 '''
 author: yangmingwei
-email: yangmingwei@shinezone.com
+email: yangmv@126.com
 '''
 from . import main
 
