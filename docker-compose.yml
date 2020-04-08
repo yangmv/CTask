@@ -1,14 +1,19 @@
-cron:
-  restart: unless-stopped
-  image: ctask:latest
-  volumes:
-    - /var/log/supervisor/:/var/log/supervisor/
-    - /var/www/CTask/:/var/www/CTask/
-    - /sys/fs/cgroup:/sys/fs/cgroup
-  ports:
-    - "5001:80"
-  hostname: cron-exec01
-
-  # docker-compose up -d
-  # docker-compose down
-  # 接口测试: http://cron.opendevops.cn:5001/v1/cron/job/
+version: "3.7"
+services:
+  ctask:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: "ctask"
+    volumes:
+      - .:/app
+  
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "9900:80"
+    depends_on:
+      - ctask
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./dist/:/usr/share/nginx/html/:rw

@@ -1,40 +1,25 @@
-FROM centos:7
-# 设置编码
-ENV LANG en_US.UTF-8
+FROM python:3.7-alpine
 
-# 同步时间
+LABEL MAINTAINER="sayheya@163.com"
+
+ADD requirements.txt /app/requirements.txt
+
 ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+ENV RUN_IN_DOCKER=yes
 
-# 1. 安装基本依赖
-RUN yum update -y && yum install epel-release -y && yum update -y && yum install wget unzip epel-release nginx  xz gcc automake zlib-devel openssl-devel supervisor  net-tools mariadb-devel groupinstall development  libxslt-devel libxml2-devel libcurl-devel git -y
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+	&& apk update \
+    && apk add --no-cache --virtual .build-deps gcc musl-dev libffi-dev openssl-dev python3-dev py-cryptography \
+    && apk add tzdata \
+    && echo "${TZ}" > /etc/timezone \
+    && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+	&& pip install -r /app/requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ \
+    && rm /var/cache/apk/* \
+    && apk del .build-deps 
 
-# 2. 准备python
-RUN wget https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tar.xz
-RUN xz -d Python-3.6.6.tar.xz && tar xvf Python-3.6.6.tar && cd Python-3.6.6 && ./configure && make && make install
+EXPOSE 5001
 
-# 3. 复制代码
-ADD . /var/www/CTask/
-WORKDIR /var/www/CTask/
+COPY . /app
+WORKDIR /app
 
-# 4. 安装pip依赖
-RUN pip3 install --user --upgrade pip
-RUN pip3 install -r requirements.txt
-
-# 5. 数据初始化
-# python3 manage.py db init        #首次需要
-# python3 manage.py db migrate
-# python3 manage.py db upgrade
-
-# 6. 日志
-VOLUME /var/log/
-
-# 7. 准备文件
-COPY docs/supervisor_cron.conf  /etc/supervisord.conf
-COPY docs/nginx_cron.conf /etc/nginx/conf.d/
-
-EXPOSE 80
-CMD ["/usr/bin/supervisord"]
-
-#docker build -t ctask .
-#docker run --name ctask -d -p 5001:80 ctask:latest
+CMD gunicorn -b 0.0.0.0:5001 manage:app --workers 4 --preload
